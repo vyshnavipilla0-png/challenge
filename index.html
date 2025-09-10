@@ -1,353 +1,220 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🍨 Premium Ice Cream Flavors Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🍦 Ice Cream Flavors & Collections</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    /* Background & Basic Styling */
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffafbd, #ffc3a0, #2193b0, #6dd5ed);
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #f6d365, #fda085, #fbc2eb, #a6c1ee);
       background-size: 400% 400%;
-      animation: gradientBG 20s ease infinite;
+      animation: gradient 15s ease infinite;
+      color: #333;
       min-height: 100vh;
-      overflow-x: hidden;
-      color: #222;
-    }
-    @keyframes gradientBG {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
     }
 
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 60px auto 40px;
-      padding: 0 20px;
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
-    /* Header */
     header {
       text-align: center;
+      padding: 50px 20px 20px;
       color: #fff;
-      margin-bottom: 40px;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
+
     header h1 {
-      font-weight: 800;
-      font-size: 3.2rem;
-      letter-spacing: 2px;
+      font-size: 2.8em;
       margin-bottom: 10px;
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
     }
+
     header p {
-      font-size: 1.2rem;
-      font-weight: 500;
-      font-style: italic;
-      letter-spacing: 1.2px;
-      color: #f7f7f7cc;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+      font-size: 1.1em;
+      margin-top: 0;
     }
 
-    /* Collection Section */
-    section.collection {
-      margin-bottom: 60px;
+    .collection-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
     }
-    section.collection h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 25px;
+
+    .collection {
+      margin-bottom: 50px;
+    }
+
+    .collection h2 {
+      margin-bottom: 20px;
       color: #fff;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      letter-spacing: 1.4px;
-      border-left: 6px solid #ffb347;
-      padding-left: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    /* Cards Grid */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
     }
 
-    /* Glassmorphism Card */
     .card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      box-shadow:
-        0 8px 32px 0 rgba(31, 38, 135, 0.37),
-        0 0 15px rgba(255, 255, 255, 0.25);
-      color: #222;
-      cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
+
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow:
-        0 20px 40px 0 rgba(31, 38, 135, 0.55),
-        0 0 25px rgba(255, 255, 255, 0.45);
+      transform: translateY(-5px);
     }
 
-    /* Image container with overlay */
-    .card-img {
-      flex-shrink: 0;
+    .card img {
+      width: 100%;
       height: 180px;
-      overflow: hidden;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      position: relative;
-    }
-    .card-img img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .card:hover .card-img img {
-      transform: scale(1.1);
-    }
-    /* Gradient overlay on image */
-    .card-img::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.4) 100%);
-      border-radius: 20px 20px 0 0;
-      pointer-events: none;
     }
 
-    /* Card content */
-    .card-content {
-      padding: 18px 22px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card-content h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
-      margin-bottom: 12px;
-      letter-spacing: 1.2px;
-    }
-    .card-content p {
-      font-weight: 400;
-      font-size: 1rem;
-      color: #eee;
-      line-height: 1.4;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-      flex-grow: 1;
+    .card-body {
+      padding: 15px;
     }
 
-    /* Footer */
-    footer {
+    .card-body h3 {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      color: #d1495b;
+    }
+
+    .card-body p {
+      margin: 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .footer {
       text-align: center;
-      padding: 35px 20px;
-      font-size: 0.9rem;
+      padding: 30px;
+      font-size: 0.9em;
       color: #fff;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.4);
-      border-top: 1px solid rgba(255,255,255,0.2);
-      font-style: italic;
-    }
-
-    /* Bubbles Animation Container */
-    .bubbles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .bubble {
-      position: absolute;
-      bottom: -100px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: rise 20s linear infinite;
-      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
-    }
-    @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.6;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-      }
-    }
-    /* Responsive text sizes */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      section.collection h2 {
-        font-size: 1.6rem;
-      }
-      .card-content h3 {
-        font-size: 1.2rem;
-      }
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
 
-  <div class="bubbles" id="bubbles"></div>
+<header>
+  <h1>🍦 Ice Cream Flavors & Collections</h1>
+  <p>Discover our delicious range of handcrafted ice creams</p>
+</header>
 
-  <header>
-    <h1>🍦 Premium Ice Cream Flavors</h1>
-    <p>Explore Our Exclusive Collections & Savory Scoops</p>
-  </header>
+<div class="collection-container" id="collections">
+  <!-- JS will populate ice cream collections here -->
+</div>
 
-  <main class="container" id="collections-container">
-    <!-- JS will insert collections and cards here -->
-  </main>
+<div class="footer">
+  &copy; 2025 ScoopWorld™ — Made with love for sweet cravings 💖
+</div>
 
-  <footer>
-    &copy; 2025 IceCream Haven &mdash; Serving Happiness Daily 🍨
-  </footer>
+<script>
+  const iceCreamData = [
+    {
+      collection: "Classic Collection",
+      items: [
+        {
+          name: "Vanilla Dream",
+          description: "Pure, creamy Madagascar vanilla in every scoop.",
+          image: "https://images.unsplash.com/photo-1590080876772-3c206c2caed7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Belgian Chocolate",
+          description: "Deep cocoa flavor with silky richness.",
+          image: "https://images.unsplash.com/photo-1616690721579-1ac431956c1e?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Strawberry Bliss",
+          description: "Fresh strawberries swirled into luscious cream.",
+          image: "https://images.unsplash.com/photo-1589712235219-891686dca5e2?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      collection: "Fruity Collection",
+      items: [
+        {
+          name: "Tropical Mango",
+          description: "A sunshine scoop with ripe Alphonso mangoes.",
+          image: "https://images.unsplash.com/photo-1551024734-0e06f5cbe78c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Berry Burst",
+          description: "Raspberry, blueberry & blackberry explosion.",
+          image: "https://images.unsplash.com/photo-1594007654729-e5e6b4c42c66?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Coconut Paradise",
+          description: "Smooth, tropical coconut with creamy goodness.",
+          image: "https://images.unsplash.com/photo-1603052875039-53a8f547e219?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      collection: "Exotic Collection",
+      items: [
+        {
+          name: "Matcha Green Tea",
+          description: "Earthy, creamy, and beautifully bitter-sweet.",
+          image: "https://images.unsplash.com/photo-1625661507000-508c24f17df4?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Rose Pistachio",
+          description: "Fragrant rose with roasted pistachio crunch.",
+          image: "https://images.unsplash.com/photo-1593444285155-0c21a031f9de?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Saffron Almond",
+          description: "A royal blend of saffron strands and almonds.",
+          image: "https://images.unsplash.com/photo-1622900839589-98ea87b72df2?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ];
 
-  <script>
-    const collections = [
-      {
-        title: "Classic Favorites",
-        flavors: [
-          {
-            name: "Vanilla Bean",
-            description: "Smooth, creamy vanilla made with authentic Madagascar vanilla beans.",
-            img: "https://images.unsplash.com/photo-1590080876772-3c206c2caed7?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Belgian Chocolate",
-            description: "Rich and velvety chocolate ice cream with deep cocoa flavors.",
-            img: "https://images.unsplash.com/photo-1616690721579-1ac431956c1e?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Strawberry Swirl",
-            description: "Fresh strawberries folded into luscious cream for a fruity delight.",
-            img: "https://images.unsplash.com/photo-1589712235219-891686dca5e2?auto=format&fit=crop&w=800&q=80"
-          },
-        ]
-      },
-      {
-        title: "Fruity Bliss",
-        flavors: [
-          {
-            name: "Mango Tango",
-            description: "Tropical mango ice cream bursting with juicy sweetness.",
-            img: "https://images.unsplash.com/photo-1551024734-0e06f5cbe78c?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Berry Mix",
-            description: "A vibrant blend of raspberry, blueberry, and blackberry flavors.",
-            img: "https://images.unsplash.com/photo-1594007654729-e5e6b4c42c66?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Coconut Cream",
-            description: "Creamy coconut ice cream with a smooth, tropical taste.",
-            img: "https://images.unsplash.com/photo-1603052875039-53a8f547e219?auto=format&fit=crop&w=800&q=80"
-          },
-        ]
-      },
-      {
-        title: "Exotic Treasures",
-        flavors: [
-          {
-            name: "Matcha Green Tea",
-            description: "Earthy and slightly bitter matcha blended into creamy ice cream.",
-            img: "https://images.unsplash.com/photo-1625661507000-508c24f17df4?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Rose Pistachio",
-            description: "Delicate rose petals combined with crunchy pistachios for elegance.",
-            img: "https://images.unsplash.com/photo-1593444285155-0c21a031f9de?auto=format&fit=crop&w=800&q=80"
-          },
-          {
-            name: "Saffron Almond",
-            description: "Luxurious saffron-infused ice cream with toasted almond bits.",
-            img: "https://images.unsplash.com/photo-1622900839589-98ea87b72df2?auto=format&fit=crop&w=800&q=80"
-          },
-        ]
-      }
-    ];
+  const container = document.getElementById("collections");
 
-    const container = document.getElementById("collections-container");
+  iceCreamData.forEach(collection => {
+    const section = document.createElement("div");
+    section.classList.add("collection");
 
-    collections.forEach(collection => {
-      const section = document.createElement('section');
-      section.classList.add('collection');
+    const title = document.createElement("h2");
+    title.textContent = `🍧 ${collection.collection}`;
+    section.appendChild(title);
 
-      const heading = document.createElement('h2');
-      heading.textContent = collection.title;
-      section.appendChild(heading);
+    const cardGrid = document.createElement("div");
+    cardGrid.className = "cards";
 
-      const cardsWrapper = document.createElement('div');
-      cardsWrapper.classList.add('cards');
+    collection.items.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-      collection.flavors.forEach(flavor => {
-        const card = document.createElement('article');
-        card.classList.add('card');
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="card-body">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+        </div>
+      `;
 
-        card.innerHTML = `
-          <div class="card-img">
-            <img src="${flavor.img}" alt="${flavor.name}" loading="lazy" />
-          </div>
-          <div class="card-content">
-            <h3>${flavor.name}</h3>
-            <p>${flavor.description}</p>
-          </div>
-        `;
-
-        cardsWrapper.appendChild(card);
-      });
-
-      section.appendChild(cardsWrapper);
-      container.appendChild(section);
+      cardGrid.appendChild(card);
     });
 
-    // Generate bubbles for background animation
-    const bubblesContainer = document.getElementById('bubbles');
-
-    function createBubble() {
-      const bubble = document.createElement('div');
-      bubble.classList.add('bubble');
-      const size = Math.random() * 60 + 20 + 'px';
-      bubble.style.width = size;
-      bubble.style.height = size;
-      bubble.style.left = Math.random() * 100 + 'vw';
-      bubble.style.animationDuration = (15 + Math.random() * 15) + 's';
-      bubble.style.animationDelay = (Math.random() * 20) + 's';
-      bubblesContainer.appendChild(bubble);
-
-      // Remove bubble after animation completes to keep DOM light
-      setTimeout(() => {
-        bubble.remove();
-      }, 35000);
-    }
-
-    // Create bubbles continuously
-    setInterval(createBubble, 800);
-  </script>
+    section.appendChild(cardGrid);
+    container.appendChild(section);
+  });
+</script>
 
 </body>
 </html>
