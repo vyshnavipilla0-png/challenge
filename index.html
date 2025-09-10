@@ -98,7 +98,7 @@
 
 <header>
   <h1>🌍 Climate Change Dashboard</h1>
-  <p>Understand the key data and trends shaping our planet’s future</p>
+  <p>Understand key data and trends shaping our planet’s future</p>
 </header>
 
 <main>
@@ -107,20 +107,20 @@
     <h2>What is Climate Change?</h2>
     <p>
       Climate change refers to significant changes in global temperatures and weather patterns over time.
-      While climate change is a natural phenomenon, recent trends show rapid changes primarily caused by human activities such as burning fossil fuels, deforestation, and industrial emissions.
+      While some changes are natural, recent rapid shifts are mainly caused by human activities like burning fossil fuels and deforestation.
     </p>
   </section>
 
   <section class="info" aria-label="Impacts of climate change">
     <h2>Why Does it Matter?</h2>
     <p>
-      Rising global temperatures lead to melting glaciers, sea-level rise, extreme weather events, and disruptions to ecosystems.
-      These changes threaten food security, human health, water supplies, and biodiversity worldwide.
+      Rising temperatures lead to melting glaciers, sea-level rise, extreme weather, and ecosystem disruptions.
+      These affect food security, water supply, human health, and biodiversity worldwide.
     </p>
   </section>
 
   <section class="chart-section" aria-label="Carbon dioxide emissions chart">
-    <h3>Global CO₂ Emissions (in billion metric tons)</h3>
+    <h3>Global CO₂ Emissions (Billion Metric Tons)</h3>
     <canvas id="co2Chart" role="img" aria-label="Chart showing global CO2 emissions from 1960 to 2020"></canvas>
   </section>
 
@@ -130,7 +130,7 @@
   </section>
 
   <section class="chart-section" aria-label="Sea level rise chart">
-    <h3>Global Sea Level Rise (in mm)</h3>
+    <h3>Global Sea Level Rise (mm)</h3>
     <canvas id="seaLevelChart" role="img" aria-label="Chart showing sea level rise from 1993 to 2020"></canvas>
   </section>
 
@@ -142,21 +142,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Data for CO2 emissions (billion metric tons) from 1960 to 2020 (sample points)
+  // Data for CO2 emissions (billion metric tons) from 1960 to 2020
   const co2Labels = [1960, 1970, 1980, 1990, 2000, 2010, 2020];
   const co2Data = [9.2, 14.2, 19.5, 22.7, 24.6, 33.9, 34.8];
 
-  // Data for global temperature anomaly (°C) 1880 to 2020 (decades sample)
+  // Data for global temperature anomaly (°C) 1880 to 2020
   const tempLabels = [1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020];
   const tempData = [-0.12, -0.08, -0.22, 0.05, 0.02, 0.18, 0.42, 0.98];
 
-  // Data for global sea level rise in mm (from 1993 to 2020)
+  // Data for global sea level rise in mm (1993 to 2020)
   const seaLevelLabels = [1993, 1998, 2004, 2010, 2016, 2020];
   const seaLevelData = [0, 25, 50, 75, 105, 120];
 
-  // CO2 Chart
-  const ctxCo2 = document.getElementById('co2Chart').getContext('2d');
-  const co2Chart = new Chart(ctxCo2, {
+  // CO2 Emissions Chart
+  new Chart(document.getElementById('co2Chart').getContext('2d'), {
     type: 'line',
     data: {
       labels: co2Labels,
@@ -177,20 +176,14 @@
         legend: { labels: { color: '#f0f0f0' } }
       },
       scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { color: '#f0f0f0' }
-        },
-        x: {
-          ticks: { color: '#f0f0f0' }
-        }
+        y: { beginAtZero: true, ticks: { color: '#f0f0f0' } },
+        x: { ticks: { color: '#f0f0f0' } }
       }
     }
   });
 
   // Temperature Anomaly Chart
-  const ctxTemp = document.getElementById('tempChart').getContext('2d');
-  const tempChart = new Chart(ctxTemp, {
+  new Chart(document.getElementById('tempChart').getContext('2d'), {
     type: 'line',
     data: {
       labels: tempLabels,
@@ -211,40 +204,38 @@
         legend: { labels: { color: '#f0f0f0' } }
       },
       scales: {
-        y: {
-          beginAtZero: false,
-          ticks: { color: '#f0f0f0' }
-        },
-        x: {
-          ticks: { color: '#f0f0f0' }
-        }
+        y: { beginAtZero: false, ticks: { color: '#f0f0f0' } },
+        x: { ticks: { color: '#f0f0f0' } }
       }
     }
   });
 
   // Sea Level Rise Chart
-  const ctxSea = document.getElementById('seaLevelChart').getContext('2d');
-  const seaLevelChart = new Chart(ctxSea, {
+  new Chart(document.getElementById('seaLevelChart').getContext('2d'), {
     type: 'bar',
     data: {
       labels: seaLevelLabels,
       datasets: [{
         label: 'Sea Level Rise (mm)',
         data: seaLevelData,
-        backgroundColor: '#00ffa5aa',
-        borderColor: '#00ffa5',
-        borderWidth: 1
+        backgroundColor: 'rgba(0,255,165,0.6)',
+        borderColor: 'rgba(0,255,165,1)',
+        borderWidth: 1,
+        borderRadius: 4
       }]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: { labels:
+        legend: { labels: { color: '#f0f0f0' } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { color: '#f0f0f0' } },
+        x: { ticks: { color: '#f0f0f0' } }
+      }
+    }
+  });
+</script>
 
-
-
-
-
-
-
-
+</body>
+</html>
