@@ -3,158 +3,93 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🌤️ Weather Dashboard</title>
+<title>🌍 Climate Change Dashboard</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
   body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #f0f0f0;
     min-height: 100vh;
-    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem 1rem;
   }
   header {
-    margin-bottom: 2rem;
     text-align: center;
+    margin-bottom: 2rem;
+    max-width: 900px;
   }
   header h1 {
-    font-weight: 600;
-    font-size: 2.8rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px rgba(0,0,0,0.3);
+    font-weight: 700;
+    font-size: 3rem;
+    margin-bottom: 0.3rem;
+    color: #a3d2ca;
+    text-shadow: 0 0 10px #0fffc1aa;
   }
-  #search-form {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  #location-input {
-    padding: 0.6rem 1rem;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    font-size: 1.1rem;
-    width: 220px;
-  }
-  #search-btn {
-    padding: 0.6rem 1.3rem;
-    background: #ff6f91;
-    border: none;
-    border-radius: 25px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  #search-btn:hover {
-    background: #ff4a68;
+  header p {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #b0e0e6cc;
   }
 
   main {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 2rem 2.5rem;
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   }
 
-  .current-weather {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+  section.info {
+    background: rgba(255,255,255,0.07);
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
     margin-bottom: 2rem;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.25);
   }
-  .current-weather img {
-    width: 100px;
-    height: 100px;
+  section.info h2 {
+    color: #5de4d3;
+    margin-bottom: 0.8rem;
   }
-  .current-info {
-    flex: 1;
-  }
-  .current-info h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.3rem;
-    font-weight: 600;
-  }
-  .current-info p {
+  section.info p {
+    line-height: 1.5;
     font-size: 1.1rem;
     opacity: 0.85;
-    margin-bottom: 0.4rem;
-  }
-  .temp {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-  }
-  .details {
-    font-weight: 600;
-    font-size: 1rem;
-    opacity: 0.9;
   }
 
-  .forecast {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-  }
-  .day-card {
-    background: rgba(255, 255, 255, 0.2);
+  section.chart-section {
+    background: rgba(255,255,255,0.05);
     border-radius: 15px;
+    padding: 1rem 1.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+  }
+  section.chart-section h3 {
+    text-align: center;
+    color: #80ced6;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  canvas {
+    max-width: 100%;
+  }
+
+  footer {
+    margin-top: auto;
+    text-align: center;
     padding: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-  }
-  .day-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(255,111,145,0.4);
-  }
-  .day-card img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 0.5rem;
-  }
-  .day-card .day {
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-  }
-  .day-card .temp-max {
-    font-weight: 700;
-    color: #ff6f91;
-  }
-  .day-card .temp-min {
-    opacity: 0.8;
     font-size: 0.9rem;
+    color: #7f8c8d88;
   }
 
-  .error {
-    margin-top: 1rem;
-    background: #ff4a4a;
-    padding: 0.8rem 1rem;
-    border-radius: 10px;
-    font-weight: 600;
-    color: white;
-    text-align: center;
-    max-width: 700px;
-    box-shadow: 0 4px 15px rgba(255,74,74,0.5);
-  }
-
-  @media(max-width: 600px) {
-    .current-weather {
-      flex-direction: column;
-      text-align: center;
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 2rem;
     }
-    .forecast {
-      grid-template-columns: repeat(3, 1fr);
+    section.info p {
+      font-size: 1rem;
     }
   }
 </style>
@@ -162,100 +97,154 @@
 <body>
 
 <header>
-  <h1>🌤️ Weather Dashboard</h1>
-  <form id="search-form" autocomplete="off">
-    <input id="location-input" type="text" placeholder="Enter location (city or country)" required />
-    <button id="search-btn" type="submit">Search</button>
-  </form>
+  <h1>🌍 Climate Change Dashboard</h1>
+  <p>Understand the key data and trends shaping our planet’s future</p>
 </header>
 
 <main>
-  <div id="weather-container" aria-live="polite"></div>
-  <div id="error-message" class="error" style="display:none;"></div>
+
+  <section class="info" aria-label="Climate change overview">
+    <h2>What is Climate Change?</h2>
+    <p>
+      Climate change refers to significant changes in global temperatures and weather patterns over time.
+      While climate change is a natural phenomenon, recent trends show rapid changes primarily caused by human activities such as burning fossil fuels, deforestation, and industrial emissions.
+    </p>
+  </section>
+
+  <section class="info" aria-label="Impacts of climate change">
+    <h2>Why Does it Matter?</h2>
+    <p>
+      Rising global temperatures lead to melting glaciers, sea-level rise, extreme weather events, and disruptions to ecosystems.
+      These changes threaten food security, human health, water supplies, and biodiversity worldwide.
+    </p>
+  </section>
+
+  <section class="chart-section" aria-label="Carbon dioxide emissions chart">
+    <h3>Global CO₂ Emissions (in billion metric tons)</h3>
+    <canvas id="co2Chart" role="img" aria-label="Chart showing global CO2 emissions from 1960 to 2020"></canvas>
+  </section>
+
+  <section class="chart-section" aria-label="Global temperature anomaly chart">
+    <h3>Global Temperature Anomaly (°C above pre-industrial)</h3>
+    <canvas id="tempChart" role="img" aria-label="Chart showing temperature anomaly trend from 1880 to 2020"></canvas>
+  </section>
+
+  <section class="chart-section" aria-label="Sea level rise chart">
+    <h3>Global Sea Level Rise (in mm)</h3>
+    <canvas id="seaLevelChart" role="img" aria-label="Chart showing sea level rise from 1993 to 2020"></canvas>
+  </section>
+
 </main>
 
+<footer>
+  Data sources: Our World in Data, NASA, NOAA | © 2025 Climate Awareness Initiative
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const apiKey = "YOUR_OPENWEATHER_API_KEY"; // <-- Replace with your OpenWeatherMap API key!
+  // Data for CO2 emissions (billion metric tons) from 1960 to 2020 (sample points)
+  const co2Labels = [1960, 1970, 1980, 1990, 2000, 2010, 2020];
+  const co2Data = [9.2, 14.2, 19.5, 22.7, 24.6, 33.9, 34.8];
 
-  const form = document.getElementById('search-form');
-  const input = document.getElementById('location-input');
-  const weatherContainer = document.getElementById('weather-container');
-  const errorMessage = document.getElementById('error-message');
+  // Data for global temperature anomaly (°C) 1880 to 2020 (decades sample)
+  const tempLabels = [1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020];
+  const tempData = [-0.12, -0.08, -0.22, 0.05, 0.02, 0.18, 0.42, 0.98];
 
-  // Convert unix timestamp to weekday name
-  function getWeekday(dt) {
-    return new Date(dt * 1000).toLocaleDateString('en-US', { weekday: 'short' });
-  }
+  // Data for global sea level rise in mm (from 1993 to 2020)
+  const seaLevelLabels = [1993, 1998, 2004, 2010, 2016, 2020];
+  const seaLevelData = [0, 25, 50, 75, 105, 120];
 
-  // Fetch weather by city name
-  async function fetchWeather(city) {
-    errorMessage.style.display = "none";
-    weatherContainer.innerHTML = `<p style="text-align:center; opacity:0.7;">Loading weather data...</p>`;
-    try {
-      // First get current weather
-      const currentRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-      );
-      if (!currentRes.ok) throw new Error("Location not found");
-
-      const currentData = await currentRes.json();
-
-      // Then get 5-day forecast by coordinates
-      const { coord: { lat, lon } } = currentData;
-      const forecastRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=${apiKey}`
-      );
-      if (!forecastRes.ok) throw new Error("Failed to fetch forecast");
-
-      const forecastData = await forecastRes.json();
-
-      renderWeather(currentData, forecastData.daily);
-    } catch (error) {
-      weatherContainer.innerHTML = "";
-      errorMessage.style.display = "block";
-      errorMessage.textContent = error.message;
-    }
-  }
-
-  function renderWeather(current, daily) {
-    const weatherHTML = `
-      <section class="current-weather" aria-label="Current weather">
-        <img src="https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png" alt="${current.weather[0].description}" />
-        <div class="current-info">
-          <h2>${current.name}, ${current.sys.country}</h2>
-          <p>${current.weather[0].description.charAt(0).toUpperCase() + current.weather[0].description.slice(1)}</p>
-          <div class="temp">${Math.round(current.main.temp)}°C</div>
-          <div class="details">
-            Feels like: ${Math.round(current.main.feels_like)}°C | Humidity: ${current.main.humidity}% | Wind: ${Math.round(current.wind.speed)} m/s
-          </div>
-        </div>
-      </section>
-
-      <section class="forecast" aria-label="5-day weather forecast">
-        ${daily.slice(1, 6).map(day => `
-          <article class="day-card" tabindex="0">
-            <div class="day">${getWeekday(day.dt)}</div>
-            <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}" />
-            <div class="temp-max">${Math.round(day.temp.max)}°C</div>
-            <div class="temp-min">${Math.round(day.temp.min)}°C</div>
-          </article>
-        `).join('')}
-      </section>
-    `;
-    weatherContainer.innerHTML = weatherHTML;
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const city = input.value.trim();
-    if (city) {
-      fetchWeather(city);
+  // CO2 Chart
+  const ctxCo2 = document.getElementById('co2Chart').getContext('2d');
+  const co2Chart = new Chart(ctxCo2, {
+    type: 'line',
+    data: {
+      labels: co2Labels,
+      datasets: [{
+        label: 'CO₂ Emissions (Billion Metric Tons)',
+        data: co2Data,
+        fill: true,
+        borderColor: '#ff6f61',
+        backgroundColor: 'rgba(255,111,97,0.3)',
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#ff6f61'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#f0f0f0' } }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: '#f0f0f0' }
+        },
+        x: {
+          ticks: { color: '#f0f0f0' }
+        }
+      }
     }
   });
 
-  // Optional: Load default weather on page load
-  fetchWeather('New York');
-</script>
+  // Temperature Anomaly Chart
+  const ctxTemp = document.getElementById('tempChart').getContext('2d');
+  const tempChart = new Chart(ctxTemp, {
+    type: 'line',
+    data: {
+      labels: tempLabels,
+      datasets: [{
+        label: 'Temperature Anomaly (°C)',
+        data: tempData,
+        fill: true,
+        borderColor: '#00d2ff',
+        backgroundColor: 'rgba(0,210,255,0.3)',
+        tension: 0.4,
+        pointRadius: 5,
+        pointBackgroundColor: '#00d2ff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#f0f0f0' } }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          ticks: { color: '#f0f0f0' }
+        },
+        x: {
+          ticks: { color: '#f0f0f0' }
+        }
+      }
+    }
+  });
 
-</body>
-</html>
+  // Sea Level Rise Chart
+  const ctxSea = document.getElementById('seaLevelChart').getContext('2d');
+  const seaLevelChart = new Chart(ctxSea, {
+    type: 'bar',
+    data: {
+      labels: seaLevelLabels,
+      datasets: [{
+        label: 'Sea Level Rise (mm)',
+        data: seaLevelData,
+        backgroundColor: '#00ffa5aa',
+        borderColor: '#00ffa5',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels:
+
+
+
+
+
+
+
+
