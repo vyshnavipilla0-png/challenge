@@ -3,141 +3,158 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🍦 Ice Cream Collections Dashboard</title>
+<title>🌤️ Weather Dashboard</title>
 <style>
-  /* Reset */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(-45deg, #f5a623, #f76b1c, #ff9472, #ffd194);
-    background-size: 400% 400%;
-    animation: gradientShift 18s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     min-height: 100vh;
-    color: #2a2a2a;
-    overflow-x: hidden;
-  }
-
-  @keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-
-  header {
-    text-align: center;
-    padding: 3rem 1rem 2rem;
     color: #fff;
-    text-shadow: 0 0 12px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  header {
+    margin-bottom: 2rem;
+    text-align: center;
   }
   header h1 {
-    font-weight: 900;
-    font-size: 3.5rem;
-    letter-spacing: 3px;
-    margin-bottom: 0.2rem;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(0,0,0,0.3);
   }
-  header p {
-    font-style: italic;
-    font-size: 1.25rem;
-    color: #fff9;
+  #search-form {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  #location-input {
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    width: 220px;
+  }
+  #search-btn {
+    padding: 0.6rem 1.3rem;
+    background: #ff6f91;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #search-btn:hover {
+    background: #ff4a68;
   }
 
   main {
-    max-width: 1100px;
-    margin: 0 auto 3rem;
-    padding: 0 1rem;
-  }
-
-  /* Collection Title */
-  .collection-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 0 0 8px rgba(0,0,0,0.3);
-    border-left: 5px solid #ff6f47;
-    padding-left: 12px;
-  }
-
-  /* Cards Grid */
-  .cards-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-
-  /* Glass card style */
-  .card {
-    background: rgba(255,255,255,0.25);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 20px rgba(255,111,71,0.25);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    color: #222;
-    height: 100%;
-  }
-  .card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 14px 28px rgba(255,111,71,0.45);
-  }
-
-  .card img {
+    padding: 2rem 2.5rem;
+    max-width: 700px;
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 20px 20px 0 0;
-    transition: transform 0.4s ease;
-  }
-  .card:hover img {
-    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   }
 
-  .card-content {
-    padding: 1.5rem 1.5rem 2rem;
-    flex-grow: 1;
+  .current-weather {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
-  .card-content h3 {
-    font-family: 'Montserrat', sans-serif;
+  .current-weather img {
+    width: 100px;
+    height: 100px;
+  }
+  .current-info {
+    flex: 1;
+  }
+  .current-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  .current-info p {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-bottom: 0.4rem;
+  }
+  .temp {
+    font-size: 4rem;
     font-weight: 700;
-    font-size: 1.6rem;
-    margin-bottom: 0.6rem;
-    color: #ff6f47;
+    margin-bottom: 0.3rem;
   }
-  .card-content p {
+  .details {
+    font-weight: 600;
     font-size: 1rem;
-    color: #3a3a3a;
-    flex-grow: 1;
-    line-height: 1.4;
+    opacity: 0.9;
   }
 
-  footer {
+  .forecast {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+  .day-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 1rem;
     text-align: center;
-    padding: 2rem 1rem;
-    color: #fff;
-    font-style: italic;
-    text-shadow: 0 0 10px rgba(0,0,0,0.4);
-    border-top: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .day-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(255,111,145,0.4);
+  }
+  .day-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.5rem;
+  }
+  .day-card .day {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .day-card .temp-max {
+    font-weight: 700;
+    color: #ff6f91;
+  }
+  .day-card .temp-min {
+    opacity: 0.8;
+    font-size: 0.9rem;
   }
 
-  /* Responsive */
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 2.2rem;
+  .error {
+    margin-top: 1rem;
+    background: #ff4a4a;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    max-width: 700px;
+    box-shadow: 0 4px 15px rgba(255,74,74,0.5);
+  }
+
+  @media(max-width: 600px) {
+    .current-weather {
+      flex-direction: column;
+      text-align: center;
     }
-    .collection-title {
-      font-size: 1.6rem;
-    }
-    .card img {
-      height: 140px;
+    .forecast {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>
@@ -145,114 +162,99 @@
 <body>
 
 <header>
-  <h1>🍨 Ice Cream Collections</h1>
-  <p>Discover delicious flavors and their stories</p>
+  <h1>🌤️ Weather Dashboard</h1>
+  <form id="search-form" autocomplete="off">
+    <input id="location-input" type="text" placeholder="Enter location (city or country)" required />
+    <button id="search-btn" type="submit">Search</button>
+  </form>
 </header>
 
-<main id="collections">
-  <!-- Collections inserted here by JS -->
+<main>
+  <div id="weather-container" aria-live="polite"></div>
+  <div id="error-message" class="error" style="display:none;"></div>
 </main>
 
-<footer>
-  &copy; 2025 Sweet Scoops &mdash; All rights reserved 🍦
-</footer>
-
 <script>
-  // Ice cream collections data
-  const collections = [
-    {
-      title: "Classic Collection",
-      items: [
-        {
-          name: "Vanilla Dream",
-          description: "A smooth and creamy vanilla ice cream made with real vanilla beans.",
-          image: "https://images.unsplash.com/photo-1580894894516-c0977a9377bc?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Chocolate Heaven",
-          description: "Rich and velvety Belgian chocolate ice cream for true chocoholics.",
-          image: "https://images.unsplash.com/photo-1613136319267-c40bca186204?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Strawberry Bliss",
-          description: "Fresh strawberry swirls combined with luscious creamy base.",
-          image: "https://images.unsplash.com/photo-1589872339739-339b148a3b4e?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
-    },
-    {
-      title: "Fruity Delights",
-      items: [
-        {
-          name: "Mango Magic",
-          description: "Sweet tropical mango ice cream bursting with fresh flavors.",
-          image: "https://images.unsplash.com/photo-1543351611-77ac8924e727?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Berry Fusion",
-          description: "A vibrant mix of raspberries, blueberries, and blackberries.",
-          image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Lemon Zest",
-          description: "Tangy and refreshing lemon ice cream with a bright citrus punch.",
-          image: "https://images.unsplash.com/photo-1590080876772-3c206c2caed7?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
-    },
-    {
-      title: "Exotic Flavors",
-      items: [
-        {
-          name: "Matcha Green Tea",
-          description: "Delicate earthy taste of matcha perfectly balanced in creamy ice cream.",
-          image: "https://images.unsplash.com/photo-1542144612-bb3f36305b03?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Rose & Pistachio",
-          description: "Fragrant rose and crunchy pistachios combined in a delightful treat.",
-          image: "https://images.unsplash.com/photo-1593444285155-0c21a031f9de?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          name: "Salted Caramel",
-          description: "Creamy caramel ice cream with a perfect touch of saltiness.",
-          image: "https://images.unsplash.com/photo-1603052875039-53a8f547e219?auto=format&fit=crop&w=800&q=80"
-        }
-      ]
+  const apiKey = "YOUR_OPENWEATHER_API_KEY"; // <-- Replace with your OpenWeatherMap API key!
+
+  const form = document.getElementById('search-form');
+  const input = document.getElementById('location-input');
+  const weatherContainer = document.getElementById('weather-container');
+  const errorMessage = document.getElementById('error-message');
+
+  // Convert unix timestamp to weekday name
+  function getWeekday(dt) {
+    return new Date(dt * 1000).toLocaleDateString('en-US', { weekday: 'short' });
+  }
+
+  // Fetch weather by city name
+  async function fetchWeather(city) {
+    errorMessage.style.display = "none";
+    weatherContainer.innerHTML = `<p style="text-align:center; opacity:0.7;">Loading weather data...</p>`;
+    try {
+      // First get current weather
+      const currentRes = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+      );
+      if (!currentRes.ok) throw new Error("Location not found");
+
+      const currentData = await currentRes.json();
+
+      // Then get 5-day forecast by coordinates
+      const { coord: { lat, lon } } = currentData;
+      const forecastRes = await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=${apiKey}`
+      );
+      if (!forecastRes.ok) throw new Error("Failed to fetch forecast");
+
+      const forecastData = await forecastRes.json();
+
+      renderWeather(currentData, forecastData.daily);
+    } catch (error) {
+      weatherContainer.innerHTML = "";
+      errorMessage.style.display = "block";
+      errorMessage.textContent = error.message;
     }
-  ];
+  }
 
-  const container = document.getElementById('collections');
-
-  // Generate collections and cards
-  collections.forEach(collection => {
-    const section = document.createElement('section');
-
-    const title = document.createElement('h2');
-    title.className = 'collection-title';
-    title.textContent = collection.title;
-
-    const cardsGrid = document.createElement('div');
-    cardsGrid.className = 'cards-grid';
-
-    collection.items.forEach(item => {
-      const card = document.createElement('article');
-      card.className = 'card';
-
-      card.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" loading="lazy" />
-        <div class="card-content">
-          <h3>${item.name}</h3>
-          <p>${item.description}</p>
+  function renderWeather(current, daily) {
+    const weatherHTML = `
+      <section class="current-weather" aria-label="Current weather">
+        <img src="https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png" alt="${current.weather[0].description}" />
+        <div class="current-info">
+          <h2>${current.name}, ${current.sys.country}</h2>
+          <p>${current.weather[0].description.charAt(0).toUpperCase() + current.weather[0].description.slice(1)}</p>
+          <div class="temp">${Math.round(current.main.temp)}°C</div>
+          <div class="details">
+            Feels like: ${Math.round(current.main.feels_like)}°C | Humidity: ${current.main.humidity}% | Wind: ${Math.round(current.wind.speed)} m/s
+          </div>
         </div>
-      `;
-      cardsGrid.appendChild(card);
-    });
+      </section>
 
-    section.appendChild(title);
-    section.appendChild(cardsGrid);
-    container.appendChild(section);
+      <section class="forecast" aria-label="5-day weather forecast">
+        ${daily.slice(1, 6).map(day => `
+          <article class="day-card" tabindex="0">
+            <div class="day">${getWeekday(day.dt)}</div>
+            <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}" />
+            <div class="temp-max">${Math.round(day.temp.max)}°C</div>
+            <div class="temp-min">${Math.round(day.temp.min)}°C</div>
+          </article>
+        `).join('')}
+      </section>
+    `;
+    weatherContainer.innerHTML = weatherHTML;
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const city = input.value.trim();
+    if (city) {
+      fetchWeather(city);
+    }
   });
+
+  // Optional: Load default weather on page load
+  fetchWeather('New York');
 </script>
 
 </body>
