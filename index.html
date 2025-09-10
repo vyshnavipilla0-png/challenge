@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🍦 Ice Cream Flavors & Collections</title>
+  <style>
+    /* Background & Basic Styling */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #f6d365, #fda085, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 20px;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin-top: 0;
+    }
+
+    .collection-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .collection {
+      margin-bottom: 50px;
+    }
+
+    .collection h2 {
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .card-body h3 {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      color: #d1495b;
+    }
+
+    .card-body p {
+      margin: 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9em;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🍦 Ice Cream Flavors & Collections</h1>
+  <p>Discover our delicious range of handcrafted ice creams</p>
+</header>
+
+<div class="collection-container" id="collections">
+  <!-- JS will populate ice cream collections here -->
+</div>
+
+<div class="footer">
+  &copy; 2025 ScoopWorld™ — Made with love for sweet cravings 💖
+</div>
+
+<script>
+  const iceCreamData = [
+    {
+      collection: "Classic Collection",
+      items: [
+        {
+          name: "Vanilla Dream",
+          description: "Pure, creamy Madagascar vanilla in every scoop.",
+          image: "https://images.unsplash.com/photo-1590080876772-3c206c2caed7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Belgian Chocolate",
+          description: "Deep cocoa flavor with silky richness.",
+          image: "https://images.unsplash.com/photo-1616690721579-1ac431956c1e?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Strawberry Bliss",
+          description: "Fresh strawberries swirled into luscious cream.",
+          image: "https://images.unsplash.com/photo-1589712235219-891686dca5e2?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      collection: "Fruity Collection",
+      items: [
+        {
+          name: "Tropical Mango",
+          description: "A sunshine scoop with ripe Alphonso mangoes.",
+          image: "https://images.unsplash.com/photo-1551024734-0e06f5cbe78c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Berry Burst",
+          description: "Raspberry, blueberry & blackberry explosion.",
+          image: "https://images.unsplash.com/photo-1594007654729-e5e6b4c42c66?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Coconut Paradise",
+          description: "Smooth, tropical coconut with creamy goodness.",
+          image: "https://images.unsplash.com/photo-1603052875039-53a8f547e219?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      collection: "Exotic Collection",
+      items: [
+        {
+          name: "Matcha Green Tea",
+          description: "Earthy, creamy, and beautifully bitter-sweet.",
+          image: "https://images.unsplash.com/photo-1625661507000-508c24f17df4?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Rose Pistachio",
+          description: "Fragrant rose with roasted pistachio crunch.",
+          image: "https://images.unsplash.com/photo-1593444285155-0c21a031f9de?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          name: "Saffron Almond",
+          description: "A royal blend of saffron strands and almonds.",
+          image: "https://images.unsplash.com/photo-1622900839589-98ea87b72df2?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ];
+
+  const container = document.getElementById("collections");
+
+  iceCreamData.forEach(collection => {
+    const section = document.createElement("div");
+    section.classList.add("collection");
+
+    const title = document.createElement("h2");
+    title.textContent = `🍧 ${collection.collection}`;
+    section.appendChild(title);
+
+    const cardGrid = document.createElement("div");
+    cardGrid.className = "cards";
+
+    collection.items.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="card-body">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+        </div>
+      `;
+
+      cardGrid.appendChild(card);
+    });
+
+    section.appendChild(cardGrid);
+    container.appendChild(section);
+  });
+</script>
+
+</body>
+</html>
