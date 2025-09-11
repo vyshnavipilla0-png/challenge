@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Climate Weather Report Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agriculture Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f2f9f1;
       margin: 0;
       padding: 0;
-      background: #f0f4f7;
-      color: #333;
     }
 
     header {
-      background: #2c3e50;
-      color: #fff;
-      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1em;
       text-align: center;
     }
 
@@ -24,102 +24,150 @@
       padding: 20px;
     }
 
-    .weather-info {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
+    .info {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .info-box {
+    .btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
       background: white;
       padding: 20px;
       border-radius: 8px;
-      margin: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 200px;
-      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    canvas {
-      max-width: 100%;
-    }
-
-    footer {
-      background: #2c3e50;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
+    .recommendation {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #e8f5e9;
+      border-left: 5px solid #4CAF50;
+      display: none;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>🌦️ Climate Weather Report Dashboard</h1>
-    <p>Live Climate Insights for the People</p>
+    <h1>AgroQuad Dashboard</h1>
+    <p>Smart Fertilizer & Pesticide Recommendations using Drones</p>
   </header>
 
   <div class="container">
-    <div class="weather-info">
-      <div class="info-box">
-        <h3>🌡️ Temperature</h3>
-        <p>25°C</p>
-      </div>
-      <div class="info-box">
-        <h3>💧 Humidity</h3>
-        <p>60%</p>
-      </div>
-      <div class="info-box">
-        <h3>🌬️ Wind Speed</h3>
-        <p>15 km/h</p>
-      </div>
-      <div class="info-box">
-        <h3>🌞 UV Index</h3>
-        <p>5 (Moderate)</p>
-      </div>
+
+    <div class="info">
+      <h2>How It Works</h2>
+      <p>A quadcopter equipped with a high-resolution camera flies over your crops, capturing images and identifying plant types and health conditions. Based on AI and plant database analysis, it recommends the right fertilizer and pesticide quantity for each type of plant, taking into account seasonal variations.</p>
     </div>
 
-    <h2 style="text-align:center;">📊 Weekly Temperature Trends</h2>
-    <canvas id="weatherChart"></canvas>
+    <div class="info">
+      <h2>Actions</h2>
+      <button class="btn" onclick="recommendFertilizer()">Get Fertilizer Recommendation</button>
+      <button class="btn" onclick="recommendPesticide()">Get Pesticide Recommendation</button>
+    </div>
+
+    <div id="fertilizerRec" class="recommendation"></div>
+    <div id="pesticideRec" class="recommendation"></div>
+
+    <div class="chart-container">
+      <h3 style="text-align:center;">Chemical Usage Overview</h3>
+      <canvas id="chemChart"></canvas>
+    </div>
+
   </div>
 
-  <footer>
-    <p>© 2025 Climate Dashboard | Powered by OpenWeather & Chart.js</p>
-  </footer>
-
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const ctx = document.getElementById('weatherChart').getContext('2d');
+    const fertilizerData = {
+      "Rice": "Urea: 100 kg/acre, DAP: 50 kg/acre",
+      "Wheat": "Urea: 80 kg/acre, Potash: 30 kg/acre",
+      "Maize": "NPK: 60:40:20 kg/acre",
+      "Tomato": "Nitrogen: 90 kg/acre, Phosphorus: 60 kg/acre"
+    };
 
-    const weatherChart = new Chart(ctx, {
-      type: 'line',
+    const pesticideData = {
+      "Rice": "Monocrotophos: 300 ml/acre",
+      "Wheat": "Chlorpyrifos: 400 ml/acre",
+      "Maize": "Carbaryl: 500 gm/acre",
+      "Tomato": "Neem Oil: 1 L/acre"
+    };
+
+    function getRandomPlant() {
+      const plants = Object.keys(fertilizerData);
+      return plants[Math.floor(Math.random() * plants.length)];
+    }
+
+    function recommendFertilizer() {
+      const plant = getRandomPlant();
+      document.getElementById("fertilizerRec").style.display = "block";
+      document.getElementById("fertilizerRec").innerHTML = `
+        <strong>Detected Plant:</strong> ${plant}<br>
+        <strong>Recommended Fertilizer:</strong> ${fertilizerData[plant]}
+      `;
+    }
+
+    function recommendPesticide() {
+      const plant = getRandomPlant();
+      document.getElementById("pesticideRec").style.display = "block";
+      document.getElementById("pesticideRec").innerHTML = `
+        <strong>Detected Plant:</strong> ${plant}<br>
+        <strong>Recommended Pesticide:</strong> ${pesticideData[plant]}
+      `;
+    }
+
+    // Chart rendering
+    const ctx = document.getElementById('chemChart').getContext('2d');
+    const chemChart = new Chart(ctx, {
+      type: 'bar',
       data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        labels: ['Urea', 'DAP', 'Potash', 'NPK', 'Neem Oil'],
         datasets: [{
-          label: 'Temperature (°C)',
-          data: [22, 24, 23, 25, 26, 27, 28],
-          borderColor: '#3498db',
-          backgroundColor: 'rgba(52, 152, 219, 0.2)',
-          fill: true,
-          tension: 0.3
+          label: 'Avg Usage (kg or L per acre)',
+          data: [100, 50, 30, 60, 1],
+          backgroundColor: [
+            'rgba(76, 175, 80, 0.6)',
+            'rgba(255, 193, 7, 0.6)',
+            'rgba(33, 150, 243, 0.6)',
+            'rgba(244, 67, 54, 0.6)',
+            'rgba(103, 58, 183, 0.6)'
+          ],
+          borderColor: [
+            'rgba(76, 175, 80, 1)',
+            'rgba(255, 193, 7, 1)',
+            'rgba(33, 150, 243, 1)',
+            'rgba(244, 67, 54, 1)',
+            'rgba(103, 58, 183, 1)'
+          ],
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: false
-          }
-        },
         scales: {
           y: {
-            beginAtZero: false
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Amount (kg or L/acre)'
+            }
           }
         }
       }
